@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: testing-web-content
+  namespace: testing
+  labels:
+    app.kubernetes.io/name: testing-web
+data:
+  index.html: |
+    <!doctype html>
+    <html lang="en">
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Testing Web App</title>
+      <style>
+        :root { color-scheme: dark; font-family: system-ui, sans-serif; }
+        body { display: grid; min-height: 100vh; place-items: center; margin: 0; background: #101827; color: #e5eef8; }
+        main { max-width: 38rem; padding: 3rem; text-align: center; border: 1px solid #2d4058; border-radius: 12px; background: #172338; }
+        h1 { margin-top: 0; color: #7dd3fc; }
+        p { color: #b8c7d9; line-height: 1.6; }
+        code { color: #86efac; }
+      </style>
+    </head>
+    <body>
+      <main>
+        <h1>Testing Web App</h1>
+        <p>The application is running successfully in Kubernetes.</p>
+        <p>Service: <code>testing-web</code></p>
+      </main>
+    </body>
+    </html>
