@@ -1,0 +1,14 @@
+source:
+  repoURL: https://prometheus-community.github.io/helm-charts
+  chart: kube-prometheus-stack
+  targetRevision: 58.3.0
+  helm:
+    parameters:
+      - name: grafana.service.type
+        value: NodePort
+      - name: grafana.service.nodePort
+        value: 31489
+      - name: prometheus.service.type
+        value: NodePort
+      - name: prometheus.service.nodePort
+        value: 31395
