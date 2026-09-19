@@ -2,17 +2,15 @@ grafana:
   adminPassword: admin
   service:
     type: NodePort
-    nodePort: 32000        # choose any free port between 30000–32767
+    nodePort: 32000        # Grafana exposed on 192.168.56.10:32000
   persistence:
     enabled: true
     size: 5Gi
-  ingress:
-    enabled: false         # disable ingress entirely
 
 prometheus:
   service:
     type: NodePort
-    nodePort: 32001        # another free port
+    nodePort: 32001        # Prometheus exposed on 192.168.56.10:32001
   prometheusSpec:
     retention: 30d
     storageSpec:
@@ -21,5 +19,3 @@ prometheus:
           resources:
             requests:
               storage: 20Gi
-  ingress:
-    enabled: false         # disable ingress entirely
