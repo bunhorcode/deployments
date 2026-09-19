@@ -1,24 +1,24 @@
-source:
-  repoURL: https://prometheus-community.github.io/helm-charts
-  chart: kube-prometheus-stack
-  targetRevision: 61.2.0
-  helm:
-    parameters:
-      - name: grafana.service.type
-        value: NodePort
-      - name: grafana.service.nodePort
-        value: 31489
-      - name: prometheus.service.type
-        value: NodePort
-      - name: prometheus.service.nodePort
-        value: 31395
-    skipCrds: true   # prevent Helm from re‑applying CRDs
-
-syncPolicy:
-  automated:
-    prune: true
-    selfHeal: true
-  syncOptions:
-    - CreateNamespace=true
-    - Replace=true
-    - ServerSideApply=true
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prometheus
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/bunhorcode/deployments.git
+    targetRevision: HEAD
+    path: monitoring/prometheus
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true

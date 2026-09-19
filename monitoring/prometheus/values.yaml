@@ -1,21 +1,25 @@
-grafana:
-  adminPassword: admin
-  service:
-    type: NodePort
-    nodePort: 32000        # Grafana exposed on 192.168.56.10:32000
-  persistence:
-    enabled: true
-    size: 5Gi
-
 prometheus:
-  service:
-    type: NodePort
-    nodePort: 32001        # Prometheus exposed on 192.168.56.10:32001
-  prometheusSpec:
+  server:
+    service:
+      type: NodePort
+      servicePort: 80
+      nodePort: 32001
+
+    persistentVolume:
+      enabled: true
+      storageClass: local-path
+      size: 20Gi
+
     retention: 30d
-    storageSpec:
-      volumeClaimTemplate:
-        spec:
-          resources:
-            requests:
-              storage: 20Gi
+
+  alertmanager:
+    enabled: false
+
+  kube-state-metrics:
+    enabled: true
+
+  prometheus-node-exporter:
+    enabled: true
+
+  prometheus-pushgateway:
+    enabled: false
