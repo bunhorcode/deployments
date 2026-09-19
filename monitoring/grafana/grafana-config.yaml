@@ -1,0 +1,43 @@
+grafana:
+  adminPassword: admin
+
+  service:
+    type: NodePort
+    nodePort: 32000        # Grafana exposed on 192.168.56.10:32000
+
+  persistence:
+    enabled: true
+    size: 5Gi
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
+
+  securityContext:
+    runAsUser: 472
+    runAsGroup: 472
+    fsGroup: 472
+
+  dashboardProviders:
+    dashboardproviders.yaml:
+      apiVersion: 1
+      providers:
+        - name: 'default'
+          orgId: 1
+          folder: ''
+          type: file
+          disableDeletion: false
+          editable: true
+          options:
+            path: /var/lib/grafana/dashboards/default
+
+  dashboards:
+    default:
+      kubernetes-cluster-overview:
+        gnetId: 6417
+        revision: 1
+        datasource: Prometheus
