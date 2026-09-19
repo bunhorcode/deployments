@@ -52,3 +52,11 @@ grafana:
         gnetId: 6417
         revision: 1
         datasource: Prometheus
+      node-exporter-full:
+        gnetId: 1860
+        revision: 37
+        datasource: Prometheus
+      kubernetes-views-global:
+        gnetId: 15757
+        revision: 1
+        datasource: Prometheus
