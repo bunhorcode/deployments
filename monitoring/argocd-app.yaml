@@ -12,3 +12,13 @@ source:
         value: NodePort
       - name: prometheus.service.nodePort
         value: 31395
+    skipCrds: true   # prevent Helm from re‑applying CRDs
+
+syncPolicy:
+  automated:
+    prune: true
+    selfHeal: true
+  syncOptions:
+    - CreateNamespace=true
+    - Replace=true
+    - ServerSideApply=true
