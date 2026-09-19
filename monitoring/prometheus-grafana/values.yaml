@@ -1,22 +1,18 @@
 grafana:
   adminPassword: admin
   service:
-    type: ClusterIP
+    type: NodePort
+    nodePort: 32000        # choose any free port between 30000–32767
   persistence:
     enabled: true
     size: 5Gi
   ingress:
-    enabled: true
-    ingressClassName: nginx
-    hosts:
-      - grafana.local
-    path: /
-    pathType: Prefix
-    annotations:
-      nginx.ingress.kubernetes.io/rewrite-target: /
-      nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    enabled: false         # disable ingress entirely
 
 prometheus:
+  service:
+    type: NodePort
+    nodePort: 32001        # another free port
   prometheusSpec:
     retention: 30d
     storageSpec:
@@ -26,12 +22,4 @@ prometheus:
             requests:
               storage: 20Gi
   ingress:
-    enabled: true
-    ingressClassName: nginx
-    hosts:
-      - prometheus.local
-    path: /
-    pathType: Prefix
-    annotations:
-      nginx.ingress.kubernetes.io/rewrite-target: /
-      nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    enabled: false         # disable ingress entirely
